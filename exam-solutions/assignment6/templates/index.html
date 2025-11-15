@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Assistant Chatbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-12">
+                <!-- Header -->
+                <div class="chat-header">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-robot me-3 fs-3 text-primary"></i>
+                        <div>
+                            <h4 class="mb-0">Healthcare Assistant</h4>
+                            <small class="text-muted">Your wellness companion</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="alert alert-warning alert-dismissible fade show mx-3" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Important:</strong> This chatbot provides general wellness information only and is not a substitute for professional medical advice. For medical concerns, please consult a healthcare professional or emergency services.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <!-- Chat Container -->
+                <div class="chat-container" id="chatContainer">
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Welcome Message -->
+                        <div class="message bot-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    <p>Hello! I'm your Healthcare Assistant. I can help you with:</p>
+                                    <ul>
+                                        <li>Daily health do's and don'ts</li>
+                                        <li>Diet tips and meal planning</li>
+                                        <li>Hydration and exercise advice</li>
+                                        <li>Personalized meal plans (weight loss, maintenance, muscle gain, heart healthy)</li>
+                                    </ul>
+                                    <p>Try asking: "Show me daily do's" or "I need a weight loss plan"</p>
+                                </div>
+                                <div class="message-time">{{ current_time }}</div>
+                            </div>
+                        </div>
+
+                        <!-- Chat History -->
+                        {% for message in chat_history %}
+                        <div class="message {{ 'user-message' if message.type == 'user' else 'bot-message' }}">
+                            <div class="message-avatar">
+                                <i class="fas {{ 'fa-user' if message.type == 'user' else 'fa-robot' }}"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    {{ message.content | safe }}
+                                </div>
+                                <div class="message-time">{{ message.timestamp }}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Loading indicator -->
+                    <div class="loading-indicator" id="loadingIndicator" style="display: none;">
+                        <div class="message bot-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    <div class="typing-indicator">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input-container">
+                    <form id="chatForm" class="d-flex">
+                        <div class="input-group">
+                            <input type="text" 
+                                   class="form-control chat-input" 
+                                   id="messageInput" 
+                                   placeholder="Ask about diet, exercise, or daily health tips..."
+                                   autocomplete="off"
+                                   required>
+                            <button class="btn btn-primary" type="submit" id="sendButton">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Quick Action Buttons -->
+                    <div class="quick-actions mt-2">
+                        <button class="btn btn-outline-secondary btn-sm quick-btn" data-message="Show me daily do's">
+                            Daily Do's
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm quick-btn" data-message="What are daily don'ts?">
+                            Daily Don'ts
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm quick-btn" data-message="Give me diet tips">
+                            Diet Tips
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm quick-btn" data-message="Show weight loss plan">
+                            Weight Loss Plan
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm quick-btn" data-message="Hydration advice">
+                            Hydration
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const chatForm = document.getElementById('chatForm');
+        const messageInput = document.getElementById('messageInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const quickButtons = document.querySelectorAll('.quick-btn');
+
+        // Handle form submission
+        chatForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            await sendMessage(message);
+        });
+
+        // Handle quick action buttons
+        quickButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const message = this.getAttribute('data-message');
+                sendMessage(message);
+            });
+        });
+
+        async function sendMessage(message) {
+            // Add user message to chat
+            addMessage(message, 'user');
+            
+            // Clear input and show loading
+            messageInput.value = '';
+            showLoading(true);
+
+            try {
+                // Send request to server
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    addMessage(data.response, 'bot');
+                } else {
+                    addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('Sorry, I encountered a connection error. Please check your internet connection and try again.', 'bot');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function addMessage(content, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}-message`;
+            
+            const currentTime = new Date().toLocaleTimeString();
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas ${type === 'user' ? 'fa-user' : 'fa-robot'}"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        ${formatMessage(content)}
+                    </div>
+                    <div class="message-time">${currentTime}</div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function formatMessage(content) {
+            // Simple formatting for lists and line breaks
+            return content
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/^\* (.+)$/gm, '<li>$1</li>')
+                .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+                .replace(/^(.+)$/, '<p>$1</p>');
+        }
+
+        function showLoading(show) {
+            loadingIndicator.style.display = show ? 'block' : 'none';
+            if (show) {
+                scrollToBottom();
+            }
+        }
+
+        function scrollToBottom() {
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Focus on input when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            messageInput.focus();
+            scrollToBottom();
+        });
+
+        // Handle Enter key in input
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                chatForm.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>

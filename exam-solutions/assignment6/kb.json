@@ -1,0 +1,84 @@
+{
+  "dos": [
+    "Aim for 7–9 hours of sleep.",
+    "Drink water regularly; start your day with a glass.",
+    "Include vegetables/fruit with each meal.",
+    "Move your body: target 7–10k steps if appropriate for you.",
+    "Practice good hygiene: wash hands regularly.",
+    "Take breaks from screens every 20-30 minutes.",
+    "Spend time outdoors for fresh air and natural light.",
+    "Practice stress management techniques like deep breathing."
+  ],
+  "donts": [
+    "Avoid skipping meals frequently.",
+    "Limit sugary drinks and ultra-processed snacks.",
+    "Don't rely on supplements without professional advice.",
+    "Avoid excessive screen time before bed.",
+    "Don't ignore persistent symptoms or health concerns.",
+    "Avoid smoking and limit alcohol consumption.",
+    "Don't compare your health journey to others.",
+    "Avoid sitting for long periods without movement."
+  ],
+  "diet_tips": [
+    "Build a balanced plate: 1/2 veggies, 1/4 protein, 1/4 whole grains.",
+    "Prioritize lean proteins (fish, beans, tofu, chicken).",
+    "Choose high-fiber carbs (oats, brown rice, quinoa).",
+    "Healthy fats in moderation (nuts, olive oil, avocado).",
+    "Stay hydrated: aim for 8 glasses of water daily.",
+    "Practice portion control: use smaller plates.",
+    "Eat mindfully: chew slowly and avoid distractions.",
+    "Plan meals ahead to make healthier choices."
+  ],
+  "hydration": [
+    "Start your day with a glass of water.",
+    "Carry a water bottle with you throughout the day.",
+    "Add fruits like lemon or cucumber to water for flavor.",
+    "Monitor urine color as a hydration indicator.",
+    "Drink water before, during, and after exercise.",
+    "Replace sugary drinks with water or herbal tea."
+  ],
+  "exercise": [
+    "Find activities you enjoy to make exercise sustainable.",
+    "Start with small, achievable goals (10-15 minutes daily).",
+    "Include both cardio and strength training in your routine.",
+    "Take the stairs instead of elevators when possible.",
+    "Walk or bike for short errands instead of driving.",
+    "Try bodyweight exercises that require no equipment."
+  ],
+  "plans": {
+    "weight loss": {
+      "breakfast": "Greek yogurt + berries + oats",
+      "lunch": "Grilled chicken salad, olive oil & lemon",
+      "snack": "Apple + peanut butter",
+      "dinner": "Baked salmon, quinoa, steamed broccoli",
+      "tips": "Focus on portion control and stay hydrated"
+    },
+    "maintenance": {
+      "breakfast": "Oatmeal + banana + chia",
+      "lunch": "Turkey sandwich on whole grain + side salad",
+      "snack": "Carrots + hummus",
+      "dinner": "Stir-fried tofu, mixed veggies, brown rice",
+      "tips": "Maintain balanced nutrition and regular meal timing"
+    },
+    "muscle gain": {
+      "breakfast": "Eggs + whole-grain toast + fruit",
+      "lunch": "Chicken, sweet potato, greens",
+      "snack": "Cottage cheese + pineapple",
+      "dinner": "Beef/tempeh, quinoa, roasted veggies",
+      "tips": "Increase protein intake and fuel workouts properly"
+    },
+    "heart healthy": {
+      "breakfast": "Oatmeal with nuts and berries",
+      "lunch": "Salmon salad with mixed greens",
+      "snack": "Handful of almonds",
+      "dinner": "Grilled fish with steamed vegetables",
+      "tips": "Focus on omega-3 rich foods and limit sodium"
+    }
+  },
+  "safety_keywords": [
+    "chest pain", "heart attack", "stroke", "difficulty breathing", "severe pain",
+    "blood", "emergency", "911", "hospital", "doctor", "medication", "prescription",
+    "diagnosis", "symptoms", "illness", "disease", "fever", "infection", "injury"
+  ],
+  "fallback": "I can help with diet plans and daily health do's & don'ts. Try asking about 'daily do's', 'diet tips', or specific plans like 'weight loss plan' or 'muscle gain plan'."
+}

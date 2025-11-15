@@ -1,0 +1,19 @@
+Sales Summary Report
+========================================
+
+Pen → Rs. 50
+Notebook → Rs. 150
+Pencil → Rs. 40
+Marker → Rs. 120
+Ruler → Rs. 75
+
+----------------------------------------
+Total Revenue: Rs. 435
+
+Detailed Breakdown:
+----------------------------------------
+Pen          | Qty: 10  | Price: Rs.5     | Total: Rs.50    
+Notebook     | Qty: 3   | Price: Rs.50    | Total: Rs.150   
+Pencil       | Qty: 20  | Price: Rs.2     | Total: Rs.40    
+Marker       | Qty: 15  | Price: Rs.8     | Total: Rs.120   
+Ruler        | Qty: 25  | Price: Rs.3     | Total: Rs.75    

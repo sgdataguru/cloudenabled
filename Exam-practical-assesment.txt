@@ -1,0 +1,394 @@
+
+🧮 Assignment 1 – Python Data & Control Practice
+Duration: 20 minutes Focus Areas: Variables, Data Types, Operators, Lists, Tuples, Dictionaries
+Task Description
+Write a Python program that:
+	•	Asks the user to enter five student names and their marks out of 100.
+	•	Stores the data in a dictionary (name → marks).
+	•	Calculates and prints:
+	•	The average mark
+	•	The name(s) of the student(s) with the highest mark
+	•	A sorted list of all students in alphabetical order
+	•	Displays all students who scored above the average.
+Sample Output
+Enter student 1 name: Ali
+Enter marks: 78
+...
+Average marks: 74.6
+Top scorer: Sana with 89 marks
+Students above average: ['Ali', 'Sana']
+Learning Outcomes
+	•	Use of variables and data structures
+	•	Applying operators and basic logic
+	•	Input/output handling
+	•	Iteration over collections
+Assessment Criteria (10 marks)
+Criteria
+Marks
+Correct use of data structures
+3
+Accurate calculations
+3
+Proper output formatting
+2
+Code readability and comments
+2
+
+
+
+
+🧾 Assignment 2 – File Handling & Functions
+Duration: 20 minutes Focus Areas: File Handling, Functions, Data Processing
+Task Description
+Write a Python program that:
+	•	Reads data from a text file named “sales.txt”. Each line in the file contains: product_name, quantity_sold, price_per_unit
+	•	Defines a function calculate_total(quantity, price) to compute total sales for each product.
+	•	Writes the results into a new file “sales_summary.txt”, showing:
+	•	Product name
+	•	Quantity sold
+	•	Total sales amount
+Sample Input (sales.txt)
+Pen,10,5
+Notebook,3,50
+Pencil,20,2
+Sample Output (sales_summary.txt)
+Pen → Rs. 50
+Notebook → Rs. 150
+Pencil → Rs. 40
+Learning Outcomes
+	•	File reading and writing
+	•	Function definition and calling
+	•	String splitting and type conversion
+	•	Output formatting
+Assessment Criteria (10 marks)
+Criteria
+Marks
+Correct file handling
+3
+Functional decomposition
+3
+Accurate calculations
+2
+Output and readability
+2
+
+
+
+
+
+
+
+🧮 Assignment 3 – Data Analysis Using Pandas & NumPy
+Duration: 20 minutes Focus Areas: NumPy, Pandas, Data Cleaning, and Basic Statistics
+Task Description
+You are given a CSV file students_scores.csv with the following columns: Name, Math, Physics, Chemistry
+Write a Python program that:
+	•	Loads the dataset using Pandas.
+	•	Replaces any missing values (NaN) with the mean of that column.
+	•	Using NumPy, calculate:
+	•	The overall average score for each student.
+	•	The highest and lowest average score in the class.
+	•	Create a new column Average in the DataFrame and save the updated data to a new CSV file students_scores_updated.csv.
+Sample Output
+Highest Average: 89.3 by Ali
+Lowest Average: 54.2 by Sara
+Updated file saved as students_scores_updated.csv
+Learning Outcomes
+	•	Apply Pandas for data import and manipulation
+	•	Handle missing values
+	•	Use NumPy arrays for numeric computation
+	•	Export cleaned data
+Assessment Criteria (10 marks)
+Criteria
+Marks
+Data loading and cleaning
+3
+Correct calculations using NumPy
+3
+Proper file output
+2
+Code readability and comments
+2
+
+
+
+I can’t help with building or training a system to recognize specific people from images (even public figures). That falls under biometric identification, which I’m not able to assist with.
+Here’s a safe, closely related TensorFlow supervised-learning assignment you can use instead—same skills (image datasets, CNNs, training, evaluation, and predicting on an uploaded image), but without identifying individuals.
+
+Assignment4  TensorFlow CNN — Classify US vs Singapore Flags
+Duration: ~20 minutes Goal: Train a small CNN in TensorFlow/Keras to classify images as either the United States President  or the Lawrence Wong ( PM of Singpaore), then test it on an uploaded image.
+What students do
+	•	Prepare data (folder structure):
+	•	data/
+	•	  train/
+	•	    Donal_trump/
+	•	    Lawrence_wong/
+	•	  val/
+	•	    Donal_trump/
+	•	    Lawrence_wong/
+Use ~20–50 images per class for train and 5–10 per class for val (small is fine for this lab).
+	•	Build & train a model (starter code below).
+	•	Evaluate on the validation set (accuracy, confusion matrix).
+	•	Predict on an uploaded image (a new flag photo) and print the predicted class.
+	•	Brief reflection (3–5 sentences): What helped the model generalize? What would you try next?
+Marking rubric (10 marks)
+	•	Data setup & loading (2): Correct directory structure and dataset loading.
+	•	Model & training (4): Model compiles, trains, and reaches sensible accuracy (>70% typical with decent data).
+	•	Evaluation (2): Reports accuracy and discusses errors/overfitting briefly.
+	•	Prediction demo (2): Runs inference on a new image and prints a class label.
+Submission
+	•	Notebook or .py script + a short reflection.
+	•	Include a screenshot of validation accuracy and the console output for the single-image prediction.
+
+
+
+
+
+
+FastAPI Mini-Assessment #2 – CRM Contacts API (No Auth, No Rate Limits)
+Scenario
+You’re building a lightweight CRM backend to manage contacts for a sales team. Each contact has a name, email, phone, and company.
+You’ll create the FastAPI app and endpoints similar to the previous lab.
+
+Step 1: Data model
+SQLite table: contacts
+Column
+Type
+Notes
+id
+INTEGER PRIMARY KEY AUTOINCREMENT
+—
+name
+TEXT NOT NULL
+Person’s full name
+email
+TEXT UNIQUE NOT NULL
+must contain “@”
+phone
+TEXT
+optional
+company
+TEXT
+optional
+
+Step 2: Endpoints to implement
+1️⃣ GET /contacts
+	•	Return all contacts.
+	•	Support filters:
+	•	company (case-insensitive exact match)
+	•	search (substring match in name or email)
+	•	Support pagination: limit (default 10, max 50), offset (default 0).
+	•	Response shape:
+	•	{
+	•	  "data": [ ... ],
+	•	  "count": 25,
+	•	  "limit": 10,
+	•	  "offset": 0
+	•	}
+
+2️⃣ GET /contacts/{id}
+	•	Return one contact by ID.
+	•	404 if not found.
+
+3️⃣ POST /contacts
+	•	Create a new contact.
+	•	Validate:
+	•	name: non-empty
+	•	email: must contain “@”
+	•	phone: optional
+	•	company: optional
+	•	On success: return 201 Created with new record.
+
+4️⃣ PUT /contacts/{id}
+	•	Update an existing contact.
+	•	Same validation as POST.
+	•	404 if not found.
+
+5️⃣ DELETE /contacts/{id}
+	•	Delete by ID.
+	•	Return 204 No Content.
+	•	404 if not found.
+
+Step 3: Optional extras (bonus 20 %)
+	•	Duplicate check: if a POST uses an existing email, return 409 Conflict.
+	•	Sort: support sort_by in {name, company} and order in {asc, desc} for GET /contacts.
+	•	Add created_at timestamp column.
+
+Step 4: Validation tests
+Test
+Example
+Expected
+Create valid contact
+{"name":"Alice","email":"a@b.com"}
+201
+Missing name
+{ "email":"x@y.com"}
+422
+Invalid email
+{ "name":"A","email":"abc"}
+422
+Duplicate email
+two POSTs with same email
+409
+GET /contacts?company=Acme
+filters correctly
+
+Pagination
+limit=5&offset=5 works
+
+
+Step 5: Submission
+	•	Submit crm_api/main.py and contacts.db.
+	•	Include README.md with:
+	•	How to run
+	•	Which endpoints implemented
+	•	Example requests
+
+Rubric (100 pts)
+Item
+Points
+CRUD endpoints implemented
+40
+Validation
+20
+Filtering + pagination
+20
+Error handling (404/409/422)
+10
+Clean code & README
+10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Assignment 6- 30-Minute Mini-Project: Healthcare Assistant Chatbot (Flask + Python)
+Scenario
+Build a tiny web app that acts as a healthcare assistant chatbot. It should answer simple questions and give generic, non-medical recommendations about:
+	•	Daily diet planning (e.g., balanced meals, hydration, portion tips)
+	•	General health practices (the everyday do’s & don’ts)
+Important: The bot must include a clear disclaimer that it is not medical advice.
+
+Learning Objectives
+	•	Set up a minimal Flask web app with 1–2 routes.
+	•	Implement a simple chatbot use openai llm 
+	•	Read and use a small knowledge base (Python dict or JSON).
+	•	Render a basic chat UI in HTML/CSS (plain or Bootstrap/Tailwind).
+
+What to Build (Requirements)
+	•	Flask App
+	•	/ route: renders a chat page.
+	•	/chat route (POST): receives a user message and returns a bot reply (JSON or page refresh).
+	•	Chat UI
+	•	Input box + “Send” button.
+	•	Shows conversation history (at least last 5 messages).
+	•	Visible disclaimer: “This chatbot provides general wellness information only and is not a substitute for professional medical advice.”
+	•	Knowledge & Logic
+	•	Add a small domain KB (dict/JSON) covering:
+	•	Diet tips (hydration, balanced plate, fiber, protein).
+	•	Daily do’s & don’ts (sleep, activity, screen time, smoking/alcohol note).
+	•	Include three simple diet plan templates (e.g., Weight Loss, Maintenance, Muscle Gain) with 1-day sample ideas.
+	•	The bot should:
+	•	Recognize intent from keywords (e.g., “diet”, “meal”, “breakfast”, “hydration”, “sleep”, “steps”, “don’ts”).
+	•	Return a relevant answer or a friendly fallback (“I can help with diet plans and general daily health practices. Try: ‘give me a weight-loss day plan’.”).
+	•	Content Guardrails
+	•	If the user mentions symptoms, diagnoses, medications, or emergencies, reply with a safety redirect (e.g., “I can’t help with medical issues. Please consult a healthcare professional or emergency services.”).
+	•	Quality
+	•	Clean code structure (app.py, templates/index.html, optional kb.json).
+	•	PEP8 style where reasonable.
+
+Timebox
+	•	Total: 30 minutes
+	•	10 min: scaffold Flask + template
+	•	10 min: KB + routing + reply logic
+	•	10 min: UI polish + testing
+
+Suggested Knowledge Base (you may copy/paste)
+KB = {
+  "dos": [
+    "Aim for 7–9 hours of sleep.",
+    "Drink water regularly; start your day with a glass.",
+    "Include vegetables/fruit with each meal.",
+    "Move your body: target 7–10k steps if appropriate for you."
+  ],
+  "donts": [
+    "Avoid skipping meals frequently.",
+    "Limit sugary drinks and ultra-processed snacks.",
+    "Don’t rely on supplements without professional advice.",
+    "Avoid excessive screen time before bed."
+  ],
+  "diet_tips": [
+    "Build a balanced plate: 1/2 veggies, 1/4 protein, 1/4 whole grains.",
+    "Prioritize lean proteins (fish, beans, tofu, chicken).",
+    "Choose high-fiber carbs (oats, brown rice, quinoa).",
+    "Healthy fats in moderation (nuts, olive oil, avocado)."
+  ],
+  "plans": {
+    "weight loss": {
+      "breakfast": "Greek yogurt + berries + oats",
+      "lunch": "Grilled chicken salad, olive oil & lemon",
+      "snack": "Apple + peanut butter",
+      "dinner": "Baked salmon, quinoa, steamed broccoli"
+    },
+    "maintenance": {
+      "breakfast": "Oatmeal + banana + chia",
+      "lunch": "Turkey sandwich on whole grain + side salad",
+      "snack": "Carrots + hummus",
+      "dinner": "Stir-fried tofu, mixed veggies, brown rice"
+    },
+    "muscle gain": {
+      "breakfast": "Eggs + whole-grain toast + fruit",
+      "lunch": "Chicken, sweet potato, greens",
+      "snack": "Cottage cheese + pineapple",
+      "dinner": "Beef/tempeh, quinoa, roasted veggies"
+    }
+  },
+  "fallback": "I can help with diet plans and daily do’s & don’ts. Try: 'show muscle gain plan' or 'daily health do’s'."
+}
+
+Acceptance Criteria (Checklist)
+	•	App runs with flask run (or python app.py).
+	•	Chat UI accepts input and displays bot responses.
+	•	Bot returns relevant answers for at least:
+	•	“daily do’s”, “daily don’ts”, “diet tips”
+	•	“weight loss plan”, “maintenance plan”, “muscle gain plan”
+	•	Safety redirect triggers on medical issues (e.g., “I have chest pain”).
+	•	Disclaimer is visible.
+
+Grading Rubric (10 points)
+	•	Routing & App structure (2 pts): routes work; minimal clean structure.
+	•	Chat logic (3 pts): keyword/intent mapping, sensible responses, fallback.
+	•	Knowledge coverage (2 pts): do’s/don’ts, diet tips, 3 plans included.
+	•	UI/UX (2 pts): usable chat, history shown, disclaimer clearly visible.
+	•	Safety & style (1 pt): safety redirect + basic code style/readability.
+
+Submission
+	•	Submit your code and a 30–60s screen recording showing:
+	•	Asking for “daily do’s”, “diet tips”, and one plan (e.g., “muscle gain plan”).
+	•	A safety redirect example (e.g., “I have chest pain”).
+	•	Include a brief README with:
+	•	How to run, assumptions, and known limitations.
+

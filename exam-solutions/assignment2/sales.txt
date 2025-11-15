@@ -1,0 +1,5 @@
+Pen,10,5
+Notebook,3,50
+Pencil,20,2
+Marker,15,8
+Ruler,25,3
